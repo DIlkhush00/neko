@@ -1,0 +1,32 @@
+# Build directories and files
+build/
+bin/
+lib/
+*.o
+*.so
+*.a
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+compile_commands.json
+_deps/
+
+# CMake specific files
+CMakeLists.txt.user
+CMakeUserPresets.json
+
+# Executables
+*.exe
+
+# Log files
+*.log
+
+# Temporary files
+*~
+#*#
+.#*
+*.swp
+.DS_Store
