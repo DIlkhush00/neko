@@ -19,4 +19,5 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(
     ${CMAKE_PROJECT_NAME}
     src/main.cpp
+    src/lexer/lexer.cpp
 )
