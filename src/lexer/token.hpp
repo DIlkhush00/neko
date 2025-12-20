@@ -1,17 +1,25 @@
-# pragma once
+#pragma once
 
 #include <optional>
 #include <string>
 
-enum class TokenType
-{
+enum class TokenType {
     // single-character tokens
-    LEFT_PAREN, RIGHT_PAREN,
-    LEFT_BRACE, RIGHT_BRACE,
-    COMMA, DOT, SEMICOLON,
-    PLUS, MINUS, STAR, SLASH,
-    BANG, EQUAL,
-    LESS, GREATER,
+    LEFT_PAREN,
+    RIGHT_PAREN,
+    LEFT_BRACE,
+    RIGHT_BRACE,
+    COMMA,
+    DOT,
+    SEMICOLON,
+    PLUS,
+    MINUS,
+    STAR,
+    SLASH,
+    BANG,
+    EQUAL,
+    LESS,
+    GREATER,
 
     // one or two character tokens
     BANG_EQUAL,
@@ -20,13 +28,20 @@ enum class TokenType
     GREATER_EQUAL,
 
     // literals
-    IDENTIFIER, STRING, NUMBER,
+    IDENTIFIER,
+    STRING,
+    NUMBER,
 
     // keywords
-    VAR, FUNCTION, RETURN,
-    FOR, WHILE,
-    IF, ELSE,
-    TRUE, FALSE,
+    VAR,
+    FUNCTION,
+    RETURN,
+    PRINT,
+    WHILE,
+    IF,
+    ELSE,
+    TRUE,
+    FALSE,
     NULL_TOK,
 
     // special tokens
@@ -34,11 +49,9 @@ enum class TokenType
     INVALID
 };
 
-struct Token
-{
+struct Token {
     TokenType type;
     std::optional<std::string> value;
     unsigned long line;
     unsigned long column;
 };
-

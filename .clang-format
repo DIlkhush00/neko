@@ -1,0 +1,29 @@
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: c++20
+
+UseTab: Never
+IndentWidth: 4
+ColumnLimit: 88
+
+PointerAlignment: Left
+NamespaceIndentation: None
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: true
+  AfterFunction: true
+  AfterClass: false
+  AfterStruct: false
+  BeforeElse: true
+
+SpaceBeforeParens: ControlStatements
+
+BinPackArguments: false
+BinPackParameters: false
+
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+
+SortIncludes: CaseInsensitive
+IncludeBlocks: Regroup

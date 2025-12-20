@@ -6,6 +6,20 @@ set -e
 # Configurations
 BUILD_DIR="build"
 ENABLE_TESTS=false
+RUN_FORMAT=false
+
+# Parse arguments
+for arg in "$@"; do
+    case $arg in
+        --format)
+            RUN_FORMAT=true
+            ;;
+        *)
+            echo "Unknown option: $arg"
+            exit 1
+            ;;
+    esac
+done
 
 echo "=== Starting Build Process ==="
 
@@ -15,34 +29,24 @@ if [ -d "$BUILD_DIR" ]; then
     rm -rf "$BUILD_DIR"
 fi
 
-# Create fresh build directory
+# Create build directory
 echo "Creating build directory..."
 mkdir -p "$BUILD_DIR"
-cd "$BUILD_DIR" || exit 1
+cd "$BUILD_DIR"
 
 # Run CMake configuration
 echo "Running CMake configuration..."
 cmake .. -DENABLE_TESTS=${ENABLE_TESTS}
 
-# Build the project
-echo "Building project..."
-make
-
-# Run tests if enabled
-if [ "$ENABLE_TESTS" = true ]; then
-    echo "=== Running Tests ==="
-    ctest --output-on-failure
-    
-    if [ $? -eq 0 ]; then
-        echo "✓ All tests passed successfully"
-    else
-        echo "✗ Some tests failed"
-        exit 1
-    fi
-else
-    echo "Test execution skipped (ENABLE_TESTS=false)"
+if [ "$RUN_FORMAT" = true ]; then
+    echo "Running format target..."
+    cmake --build . --target format
 fi
 
+# Build the project
+echo "Building project..."
+cmake --build .
+
 echo ""
-echo "=== Build Successful ==="
+echo "✓ Build Successful"
 echo "Run the program with: ./build/neko"
