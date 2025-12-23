@@ -1,6 +1,7 @@
 #include "lexer/lexer.hpp"
 #include "parser/ast_printer.hpp"
 #include "parser/parser.hpp"
+#include "sema/semantic_analyzer.hpp"
 
 #include <cstdlib>
 #include <filesystem>
@@ -62,6 +63,20 @@ int main(int argc, char* argv[])
 
     Parser parser(tokens);
     std::vector<Stmt*> statements = parser.parse();
+
+    std::cout << "Performing semantic analysis..." << std::endl;
+    std::cout << std::endl;
+
+    ErrorHandler semaErrorHandler;
+    SemanticAnalyzer analyzer(semaErrorHandler);
+    analyzer.analyze(statements);
+
+    if (semaErrorHandler.has_errors())
+    {
+        std::cerr << "Semantic analysis failed with "
+                  << semaErrorHandler.get_errors().size() << " errors." << std::endl;
+        return EXIT_FAILURE;
+    }
 
     std::cout << "Printing AST..." << std::endl;
     std::cout << std::endl;

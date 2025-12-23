@@ -38,4 +38,6 @@ add_executable(
     src/main.cpp
     src/lexer/lexer.cpp
     src/parser/parser.cpp
+    src/sema/semantic_analyzer.cpp
+    src/sema/symbol_table.cpp
 )
