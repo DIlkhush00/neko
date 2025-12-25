@@ -5,10 +5,9 @@ function add(a, b) {
     return a + b;
 }
 
-if (x < y) {
+if (x <= y) {
     var z = add(x, y);
     print z;
-    x = z;
 } else {
     x = 0;
 }

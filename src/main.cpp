@@ -1,3 +1,4 @@
+#include "ir/ir_generator.hpp"
 #include "lexer/lexer.hpp"
 #include "parser/ast_printer.hpp"
 #include "parser/parser.hpp"
@@ -83,6 +84,16 @@ int main(int argc, char* argv[])
 
     AstPrinter printer;
     printer.print(statements);
+
+    std::cout << std::endl;
+    std::cout << "Generating Intermediate Representation (3AC - Three-Address Code)..." << std::endl;
+    std::cout << std::endl;
+
+    ir::IRGenerator ir_gen;
+    ir::Program ir_program = ir_gen.generate(statements);
+
+    std::cout << "Instructions:" << std::endl;
+    ir_program.print();
 
     return EXIT_SUCCESS;
 }

@@ -49,4 +49,9 @@ cmake --build .
 
 echo ""
 echo "✓ Build Successful"
-echo "Run the program with: ./build/neko"
+echo "Run the compiler with: ./build/neko <source-file>"
+echo ""
+echo "To assemble and link the output:"
+echo "  nasm -f elf64 output.asm -o output.o"
+echo "  gcc -no-pie output.o -o output"
+echo "  ./output"
