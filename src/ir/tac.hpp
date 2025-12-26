@@ -58,6 +58,7 @@ enum class OpCode {
     PARAM_BIND,
     PRINT,
     HALT,
+    PROLOGUE,
     LT,
     GT,
     LE,
@@ -113,6 +114,8 @@ struct Instruction {
             return "print " + arg1->to_string();
         case OpCode::HALT:
             return "halt";
+        case OpCode::PROLOGUE:
+            return "prologue";
         case OpCode::LT:
             return result->to_string() + " = " + arg1->to_string() + " < " +
                    arg2->to_string();

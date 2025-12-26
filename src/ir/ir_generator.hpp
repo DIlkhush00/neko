@@ -60,4 +60,4 @@ class IRGenerator : public ExprVisitor, public StmtVisitor {
     }
 };
 
-}
+} // namespace ir

@@ -229,6 +229,7 @@ void IRGenerator::visitVarStmt(VarStmt* stmt)
 void IRGenerator::visitFunctionStmt(FunctionStmt* stmt)
 {
     emit(OpCode::LABEL, std::nullopt, Operand::label(stmt->name.value.value()));
+    emit(OpCode::PROLOGUE);
 
     for (size_t i = 0; i < stmt->parameters.size(); ++i)
     {
@@ -248,4 +249,4 @@ void IRGenerator::visitFunctionStmt(FunctionStmt* stmt)
     }
 }
 
-}
+} // namespace ir

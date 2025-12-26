@@ -41,4 +41,5 @@ add_executable(
     src/sema/semantic_analyzer.cpp
     src/sema/symbol_table.cpp
     src/ir/ir_generator.cpp
+    src/codegen/codegen.cpp
 )

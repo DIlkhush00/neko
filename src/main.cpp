@@ -1,3 +1,4 @@
+#include "codegen/codegen.hpp"
 #include "ir/ir_generator.hpp"
 #include "lexer/lexer.hpp"
 #include "parser/ast_printer.hpp"
@@ -54,10 +55,12 @@ int main(int argc, char* argv[])
     Lexer lexer(sourceCode);
     std::vector<Token> tokens;
 
-    while (!lexer.is_at_end())
+    Token token;
+    do
     {
-        tokens.push_back(lexer.next_token());
-    }
+        token = lexer.next_token();
+        tokens.push_back(token);
+    } while (token.type != TokenType::EOF_TOK);
 
     std::cout << "Parsing tokens into AST..." << std::endl;
     std::cout << std::endl;
@@ -86,7 +89,8 @@ int main(int argc, char* argv[])
     printer.print(statements);
 
     std::cout << std::endl;
-    std::cout << "Generating Intermediate Representation (3AC - Three-Address Code)..." << std::endl;
+    std::cout << "Generating Intermediate Representation (3AC - Three-Address Code)..."
+              << std::endl;
     std::cout << std::endl;
 
     ir::IRGenerator ir_gen;
@@ -94,6 +98,28 @@ int main(int argc, char* argv[])
 
     std::cout << "Instructions:" << std::endl;
     ir_program.print();
+
+    std::cout << std::endl;
+    std::cout << "Generating Target Code (Assembly)..." << std::endl;
+    std::cout << std::endl;
+
+    codegen::CodeGenerator code_gen;
+    std::string assembly = code_gen.generate(ir_program);
+
+    std::cout << "Target Assembly:" << std::endl;
+    std::cout << assembly << std::endl;
+
+    std::ofstream outFile("output.asm");
+    if (outFile.is_open())
+    {
+        outFile << assembly;
+        outFile.close();
+        std::cout << "Assembly saved to output.asm" << std::endl;
+    }
+    else
+    {
+        std::cerr << "Error: Could not write to output.asm" << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }
