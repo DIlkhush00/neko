@@ -192,16 +192,15 @@ void IRGenerator::visitIfStmt(IfStmt* stmt)
 void IRGenerator::visitWhileStmt(WhileStmt* stmt)
 {
     Operand start_label = new_label("while_start");
-    Operand end_label = new_label("while_end");
+    Operand cond_label = new_label("while_cond");
 
+    emit(OpCode::JUMP, std::nullopt, cond_label);
     emit(OpCode::LABEL, std::nullopt, start_label);
-    Operand condition = gen(stmt->condition);
-    emit(OpCode::JUMP_IF_FALSE, std::nullopt, condition, end_label);
-
     gen(stmt->body);
-    emit(OpCode::JUMP, std::nullopt, start_label);
 
-    emit(OpCode::LABEL, std::nullopt, end_label);
+    emit(OpCode::LABEL, std::nullopt, cond_label);
+    Operand condition = gen(stmt->condition);
+    emit(OpCode::JUMP_IF_TRUE, std::nullopt, condition, start_label);
 }
 
 void IRGenerator::visitReturnStmt(ReturnStmt* stmt)
